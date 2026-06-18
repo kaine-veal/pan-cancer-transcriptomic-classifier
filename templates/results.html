@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 { color: #2c3e50; }
+        h2 { color: #34495e; }
+        .patient-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        .prediction {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2980b9;
+        }
+        .confidence {
+            font-size: 18px;
+            color: #27ae60;
+        }
+        .warning {
+            background-color: #fde8e8;
+            border-left: 4px solid #e74c3c;
+            padding: 10px;
+            color: #e74c3c;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th {
+            background-color: #2c3e50;
+            color: white;
+            padding: 8px;
+            text-align: left;
+        }
+        td { padding: 8px; border-bottom: 1px solid #ddd; }
+        tr:hover { background-color: #f5f5f5; }
+        .back-btn {
+            background-color: #7f8c8d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .prob-bar {
+            background-color: #2980b9;
+            height: 16px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Prediction Results</h1>
+    <a href="/" class="back-btn">← Upload Another File</a>
+
+    {% for patient in patients %}
+    <div class="patient-card">
+
+        <h2>{{ patient.sample_id }}</h2>
+
+        <p class="prediction">
+            Predicted Tumour Type: {{ patient.prediction }}
+        </p>
+
+        <p class="confidence">
+            Confidence: {{ patient.confidence }}%
+        </p>
+
+        {% if patient.low_confidence %}
+        <div class="warning">
+            ⚠ Low confidence prediction (&lt;70%) — clinical review recommended
+        </div>
+        {% endif %}
+
+        <h3>Probability Distribution</h3>
+        <table>
+            <tr>
+                <th>Tumour Type</th>
+                <th>Probability</th>
+                <th>Visual</th>
+            </tr>
+            {% for prob in patient.probabilities %}
+            <tr>
+                <td>{{ prob.label }}</td>
+                <td>{{ prob.value }}%</td>
+                <td>
+                    <div class="prob-bar" style="width: {{ prob.value }}%"></div>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h3>Top Driving Genes (Biomarkers)</h3>
+        <table>
+            <tr>
+                <th>Gene</th>
+                <th>Relative Importance</th>
+                <th>% of Total Model Importance</th>
+                <th>Expression Value</th>
+            </tr>
+            {% for gene in patient.top_genes %}
+            <tr>
+                <td>{{ gene.gene }}</td>
+                <td>{{ gene.relative_importance }}%</td>
+                <td>{{ gene.pct_of_total }}%</td>
+                <td>{{ gene.expression }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+    {% endfor %}
+
+</body>
+</html>

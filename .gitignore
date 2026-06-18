@@ -1,0 +1,8 @@
+data/
+models/
+logs/
+__pycache__/
+*.pyc
+*.pkl
+.envsrc/*.egg-info/
+test_upload.csv

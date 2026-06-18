@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tcga_classifier"
+version = "0.1.0"
+description = "Pan-Cancer Transcriptomic Subtyping Classifier"
+requires-python = ">=3.10"
+dependencies = [
+    "pandas",
+    "numpy",
+    "scikit-learn",
+    "matplotlib",
+    "seaborn",
+    "flask",
+    "joblib",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.scripts]
+tcga-classify = "tcga_classifier.app:main"
