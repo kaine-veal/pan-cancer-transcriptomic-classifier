@@ -2,7 +2,7 @@
 
 A supervised machine learning pipeline that classifies primary tumour origin from RNA-Seq gene expression data, deployed as a Flask web application.
 
-Built as part of the GTAC Python for Bioinformatics capstone (NHS England).
+Built as part of the GTAC Python for Bioinformatics capstone.
 
 ## Data
 
