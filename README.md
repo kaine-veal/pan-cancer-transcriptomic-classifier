@@ -58,6 +58,12 @@ app.py           — Flask deployment with CSV upload and prediction output
 
 ---
 
+## Demo
+
+![Flask Prediction Output](outputs/flask_demo.png)
+
+---
+
 ## Installation
 
 ```bash
