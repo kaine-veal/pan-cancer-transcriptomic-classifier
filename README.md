@@ -85,9 +85,3 @@ python src/tcga_classifier/app.py
 Visit `http://localhost:5001` — upload a CSV of patient RNA-Seq profiles to receive tumour type predictions, confidence scores, and top driving biomarker genes.
 
 ---
-
-## Limitations
-
-- 801 samples is small for a clinical-grade tool — production would require independent cohort validation
-- Gene IDs are anonymous (`gene_0`, `gene_1`) — a real pipeline would map to HUGO gene symbols
-- Clinical deployment would require UKCA marking and regulatory approval
